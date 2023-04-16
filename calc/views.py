@@ -5,15 +5,18 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
-
+@csrf_exempt
 def IndexPage(request):
     return render(request,'index.html')
 
 @login_required(login_url='login')
+@csrf_exempt
 def HomePage(request):
     return render(request,'home.html')
 
+@csrf_exempt
 def SignupPage(request):
     if request.method=='POST':
         uname=request.POST.get('username')
@@ -31,6 +34,7 @@ def SignupPage(request):
 
     return render(request,'signup.html')
 
+@csrf_exempt
 def LoginPage(request):
     if request.method=='POST':
         username=request.POST.get('username')
@@ -44,17 +48,21 @@ def LoginPage(request):
             
     return render(request,'login.html')
 
+@csrf_exempt
 def BeginPage(request):
     return render(request,'begin.html')
 
+@csrf_exempt
 def WinPage(request):
     logout(request)
     return render(request,'win.html')
 
+@csrf_exempt
 def LossPage(request):
     logout(request)
     return render(request,'loss.html')
 
+@csrf_exempt
 def Logout(request):
     logout(request)
     return redirect('index')
