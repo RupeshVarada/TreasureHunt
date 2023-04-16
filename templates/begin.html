@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Treasure Hunt</title>
+        <style>
+            body {
+                background-image: url("{%static 'beginback.jpg'%}");
+                background-size: cover;
+                margin-top: 20%;
+                background-position: center;
+                font-family: Arial, sans-serif;
+            }
+            h2 {
+                color: #ffffff;
+                font-size: 32px;
+                margin-top: 100px;
+            }
+            ul,p{
+                color: yellow;
+            }
+            a {
+                display: inline-block;
+                background-color: #0070C0;
+                text-align: center;
+                color: #FFFFFF;
+                padding: 10px 20px;
+                border-radius: 5px;
+                text-decoration: none;
+                margin-top: 10px;
+                margin-left: 200px;
+                transition: all 0.3s ease;
+            }
+            a:hover {
+                background-color: #003F7F;
+            }
+            .rules{
+                margin-left:10%;
+                margin-top: 2%;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="rules">
+        <h2>RULES:</h2>
+        <p>Here are the rules of the game:</p>
+        <ul>
+            <li>The game is played by a single player who will work to unlock the treasure box.</li>
+            <li>The treasure box is locked with a 6-digit code, and the player will have to find each digit of the code using the clues provided on the 6 cards.</li>
+            <li>Each card has a question and an answer. The number that represents the character count of the answer word is the single digit answer, which is one of the 6 digits of the lock code.</li>
+            <li>The player must answer each question on the cards and count the number of characters in the answer word or phrase to find the single digit answer for each card.</li>
+            <li>The player is allowed to use any external resources, such as books or the internet, to find the answers to the questions.</li>
+            <li>The game ends when the player successfully unlocks the treasure box by entering the correct 6-digit code.</li>
+            <li>If the player is unable to unlock the treasure box after two attempts, the game is considered lost.</li>
+        </ul>
+        <a href="{% url 'home'%}">Begin</a>
+        </div>
+    </body>
+</html>

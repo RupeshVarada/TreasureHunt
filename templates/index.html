@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Treasure Hunt</title>
+	<style>
+  body {
+	background-image: url("{% static 'indexback1.jpg'%}");
+	background-size: cover;
+	background-position: center;
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+}
+
+.container {
+	max-width: 1000px;
+	margin: 0 auto;
+	text-align: center;
+	padding: 50px 0;
+	color: #FFF;
+	text-shadow: 4px 4px 8px #000;
+}
+
+h1 {
+	font-size: 80px;
+	margin-bottom: 40px;
+}
+
+.buttons {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.button {
+	background-color: rgb(93, 182, 177);
+	color: #FFF;
+	border: none;
+	border-radius: 4px;
+	padding: 12px 24px;
+	margin: 10px;
+	font-size: 18px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.admin-link {
+	background-color: #f8f8f8;
+	
+}
+
+.button:hover {
+	background-color: #2586819c;
+}
+
+.admin-link:hover {
+	background-color: #dbedf5;
+}
+
+
+</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Treasure Hunt</h1>
+        {% csrf_token %}
+		
+		<div class="buttons">
+			<a href="{% url 'login' %}" class="button">Log In</a>
+			<a href="{% url 'signup' %}" class="button">Register</a>
+		</div>
+		
+	</div>
+</body>
+</html>

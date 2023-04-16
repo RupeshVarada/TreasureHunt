@@ -1,0 +1,405 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Treasure Hunt</title>
+    <style>
+        body {
+            background-image: linear-gradient(to bottom, #3f87a6, #ebf8e1);
+            background-size: cover;
+            animation: background-gradient 10s ease-in-out infinite;
+        }
+
+        @keyframes background-gradient {
+            0% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+
+        .timer {
+            /* Existing styles... */
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .code input {
+            /* Existing styles... */
+            transition: all 0.2s ease-in-out;
+        }
+
+        .code input:focus {
+            outline: none;
+            border-color: blue;
+            box-shadow: 0px 0px 10px rgba(0, 0, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .flip-card {
+            background-color: transparent;
+            width: 300px;
+            height: 200px;
+            perspective: 1000px;
+            margin: 20px;
+            display: inline-block;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+
+        .flip-card-front {
+            background-color: whitesmoke;
+            color: black;
+            border-radius: 20px;
+        }
+
+        .flip-card-back {
+            background-color: #3f87a6;
+            color: white;
+            border-radius: 20px;
+            transform: rotateY(180deg);
+        }
+
+        header {
+            background-color: #44a3c9;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        header nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+        }
+
+        header nav li {
+            margin-right: 20px;
+        }
+
+        header nav li:last-child {
+            margin-right: 0;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        header nav a:hover {
+            color: #ccc;
+        }
+
+        .submit-btn {
+            background-color: rgba(56, 53, 238, 0.76);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+
+
+
+        }
+
+        .submit-btn:hover {
+            background-color: #1525b3;
+        }
+
+        .logout-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .logout-btn:hover {
+            background-color: #3e8e41;
+        }
+
+        footer {
+
+            background-color: #44a3c9;;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .timer {
+            position: fixed;
+            top: 17%;
+            right: 0;
+            transform: translateY(-50%);
+            padding: 20px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timer label {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .timer span {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .code {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+
+            margin-bottom: 40px;
+
+        }
+
+        .border {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+            margin-left: 300px;
+            margin-right: 300px;
+            border-radius: 20px;
+        }
+
+        .border1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            margin-left: 50px;
+            margin-right: 50px;
+
+            border-radius: 5px;
+        }
+
+        .code input {
+            font-size: 30px;
+            text-align: center;
+            padding: 10px;
+            width: 50px;
+            margin: 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .code input:focus {
+            outline: none;
+            border-color: blue;
+        }
+        body{
+            background-image: url("{% static 'bg.png'%}");
+        }
+    </style>
+    <header>
+        <h1>Treasure Hunt</h1>
+        <a href="{% url 'logout'%}" class="logout-btn">Logout</a>
+    </header>
+</head>
+
+<body>
+    <div class="timer">
+        <label>Time:</label>
+        <span id="timer">00:00:00</span>
+    </div>
+    <div class="border">
+        <div class="code">
+            <input type="text" maxlength="1" />
+            <input type="text" maxlength="1" />
+            <input type="text" maxlength="1" />
+            <input type="text" maxlength="1" />
+            <input type="text" maxlength="1" />
+            <input type="text" maxlength="1" />
+            <br> <button class="submit-btn" id="myButton" onclick="checkCode()">Unlock</button>
+        </div>
+    </div>
+
+
+    <script>
+        let startTime = Date.now();
+        const timer = document.getElementById('timer');
+        const codeInputs = document.querySelectorAll('.code input');
+        const correctCode = '123456';
+        let num = 0;
+
+
+
+        let timerInterval = setInterval(() => {
+            const elapsedTime = Date.now() - startTime;
+            const formattedTime = new Date(elapsedTime).toISOString().substr(11, 8);
+            timer.textContent = formattedTime;
+        }, 1000);
+
+        const checkCode = () => {
+            const enteredCode = Array.from(codeInputs).map(input => input.value).join('');
+
+
+            if (enteredCode === correctCode) {
+                clearInterval(timerInterval);
+                // alert('Congratulations, you entered the correct code!');
+                window.location.href = "{% url 'win' %}";
+            } else {
+                alert("wrong code try again ");
+                num = num + 1;
+                if (num === 1) {
+                    alert("remaining attempts:1");
+                }
+                if (num === 2) {
+                    alert("you have no choices");
+                    window.location.href = "{% url 'loss' %}";
+
+                }
+            }
+
+        };
+
+        codeInputs.forEach(input => {
+            input.addEventListener('keyup', (event) => {
+                const {
+                    value,
+                    maxLength
+                } = event.target;
+                if (value.length === maxLength) {
+                    const nextInput = input.nextElementSibling;
+                    if (nextInput) {
+                        nextInput.focus();
+                    } else {
+                        checkCode();
+                    }
+                }
+            });
+        });
+    </script>
+    <div class="border1">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h2>Card 1</h2>
+                </div>
+                <div class="flip-card-back">
+                    <p>What begins with T, ends with T, and has T in it ?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h2>Card 2</h2>
+                </div>
+                <div class="flip-card-back">
+                    <p>What has a head and a tail but no body ?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h2>Card 3</h2>
+                </div>
+                <div class="flip-card-back">
+                    <h2>Card 3 Back</h2>
+                    <p>This is some text on the back of card 3.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="border1">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h2>Card 4</h2>
+                </div>
+                <div class="flip-card-back">
+                    <h2>Card 4 Back</h2>
+                    <p>What has a head and a tail but no body ?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h2>Card 5</h2>
+                </div>
+                <div class="flip-card-back">
+                    <h2>Card 5 Back</h2>
+                    <p>This is some text on the back of card 5.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h2>Card 6</h2>
+                </div>
+                <div class="flip-card-back">
+                    <p>What has keys but can't open locks ?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
