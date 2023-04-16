@@ -25,24 +25,22 @@ The Secound way is the way where the user need to find all the answers from the 
 The possible answers to the questions asked in the puzzle are:
 ```
 Q1.  
-Ans: fire
+Ans: 6 (teapot)
 
 Q2.
-Ans: 1845
+Ans: 4 (coin)
 
 Q3.
-Ans: personification
+Ans: 4 (comb)
 
 Q4.
-Ans: jbk
+Ans: 7 (battery)
 
-Q5.(dead end bridge question)
-Ans: large (correct)
-Ans: few (leads to dead end)
+Q5.
+Ans: 4 (time)
 
-Q6.(dead end bridge question)
-Ans: 36 (correct)
-Ans: 31 (leads to dead end)
+Q6.
+Ans: 8 (keyboard)
  
 ``` 
 
