@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from calc import views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,3 +30,4 @@ urlpatterns = [
     path('loss/',views.LossPage,name='loss'),
     path('logout/',views.Logout,name='logout'),
 ]
+urlpatterns += staticfiles_urlpatterns()
