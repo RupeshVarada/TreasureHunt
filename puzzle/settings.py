@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-)4t=_+(nlpmai$1c^yl5s1&ywm#_r0kui^agf3v%@gri#h%jdc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['treasure-hunt-puzzle.azurewebsites.net','127.0.0.1','localhost']
 
 
 # Application definition
@@ -71,7 +71,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'puzzle.wsgi.application'
 
-
+SESSION_COOKIE_SECURE = True
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -113,6 +113,23 @@ USE_I18N = True
 
 USE_TZ = True
 
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_COOKIE_SECURE = True 
+CSRF_COOKIE_HTTPONLY = True 
+
+
+CSRF_TRUSTED_ORIGINS = ['https://treasure-hunt-puzzle.azurewebsites.net']
+CSRF_COOKIE_DOMAIN = 'azurewebsites.net'
+CORS_ORIGIN_WHITELIST = (
+    'https://treasure-hunt-puzzle.azurewebsites.net/',
+    'treasure-hunt-puzzle.azurewebsites.net',
+    'azurewebsites.net',
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -121,7 +138,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS =[
     os.path.join(BASE_DIR,'static')
 ]
-
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
