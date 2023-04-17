@@ -29,5 +29,7 @@ urlpatterns = [
     path('win/',views.WinPage,name='win'),
     path('loss/',views.LossPage,name='loss'),
     path('logout/',views.Logout,name='logout'),
+    path('adm/',views.adm,name='adm'),
+
 ]
 urlpatterns += staticfiles_urlpatterns()
