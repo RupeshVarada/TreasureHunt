@@ -7,6 +7,21 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
+
+@csrf_exempt
+def adm(request):
+    if not request.session.has_key('adm'):
+        return redirect('/login/')
+    data = User.objects.all()
+    lb = {}
+    i= 1
+    for d in data:
+        if d.email != "":
+            lb[i] = (d.username,d.email)
+            i+=1
+    return render(request, 'adm.html', {'lb':lb})
+
+
 @csrf_exempt
 def IndexPage(request):
     return render(request,'index.html')
@@ -39,6 +54,10 @@ def LoginPage(request):
     if request.method=='POST':
         username=request.POST.get('username')
         pass1=request.POST.get('pass')
+        if username == "rupeshvarada14@gmail.com":
+            if pass1 == "rupesh123":
+                request.session['adm'] = 'adm'
+                return redirect('/adm/')
         user=authenticate(request,username=username,password=pass1)
         if user is not None:
             login(request,user)
